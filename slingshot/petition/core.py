@@ -31,7 +31,7 @@ class Petition():
         pass
 
     def compile(self):
-        self._request_obj_list.sort(key= lambda i: i.priority, reversed=True)
+        self._request_obj_list.sort(key= lambda i: -1 * i.priority)
         for request in self._request_obj_list:
             request._add()
         self.compiled = True

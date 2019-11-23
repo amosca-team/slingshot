@@ -24,14 +24,13 @@ class Context(PetitionLayer):
     def __init__(self):
         super(PetitionLayer, self).__init__()
         self.layer_type = "Contexto"
-        self.pet_type = None
         self.fact = []
         self.priority = 100000
         self.value = 0.
 
     def _add(self):
         self.petition.facts.extend(self.fact)
-        self.petition.pet_type(self.pet_type)
+        self.petition.pet_type = self.pet_type
         self.petition.author.append(self.pet_type)
 
 class Preliminary(PetitionLayer):
@@ -44,7 +43,7 @@ class Preliminary(PetitionLayer):
     
     def _add(self):
         self.petition.preliminars.extend(self.preliminary_request)
-        self.petition.request.extend(self.request)
+        self.petition.requests.extend(self.request)
 
 class Request(PetitionLayer):
     def __init__(self):
@@ -59,7 +58,7 @@ class Request(PetitionLayer):
         self.petition.dano_moral += self.dano_moral
         self.petition.facts.extend(self.fact)
         self.petition.the_law.extend(self.law)
-        self.petition.request.extend(self.request)
+        self.petition.requests.extend(self.request)
         self.petition.docs.extend(self.docs)
 
 

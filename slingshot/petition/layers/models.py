@@ -34,6 +34,29 @@ class CounterPart(Part):
     def _add(self):
         self.petition.counter_part.extend(self.parraf)
 
+class ContratoServicos(Context):
+    def __init__(self, service, docs):
+        super(ContratoServicos, self).__init__()
+        self.layer_type = "Contexto - Prestacao de servicos"
+        self.pet_type = "Acao condenatoria com base no CDC"
+        self.service = service
+        self.docs = docs
+        self.priority = 10000000
+        self.set_text()
+        
+    def set_text(self):
+        self.set_fact()
+        
+    def set_fact(self):
+        docs = str(self.docs).replace("[", "").replace("]", "")
+        base = "Conforme da documentacao anexa ({}) parte autora firmou com a parte requerida " \
+        "contrato de prestacao de servicos, mais especificamente por meio de {}. Ocorre que, durante " \
+        "a execucao do contrato, a re teve uma serie de condutas que passaram a prejudicar a autora."
+        base = base.format(docs, self.service)
+        t1 = "Ainda conforme a documentacao, a parte autora tentou de todos os meios amigaveis possiveis" \
+        "para a solucao dos problemas que seguem, tornando esta acao a unica solucao possivel."
+        self.fact.append(base)
+        self.fact.append(t1)
 
 class InversaoOnusProva(Preliminary):
     def __init__(self):
@@ -75,14 +98,15 @@ class CobrancaIndevida(Request):
         base = "Conforme a documentacao anexa {}, a parte re cobrou indevidamente " \
         "da autora valores que perfazezm o montate de R$ {}, sob a invalida justificativa " \
         " de corresponderem a {}".format(docs, self.value, tarifas)
-        t1 = "A parte autora ressalta que jamais anuiu com a cobranca desses valores, seja como prestacao de servicos adicionais" \ 
+        t1 = "A parte autora ressalta que jamais anuiu com a cobranca desses valores, seja como prestacao de servicos adicionais" \
         ", reajuste no plano ou qualquer outro tipo de cobranca, de maneira que resta ilicita e incorreta a referida cobranca de valores."
         self.fact.append(base)
         self.fact.append(t1)
         
     def set_law(self):
-        base = "De acordo com o Art XXX do CDC, quando houver cobranca indevida, o consumidor tem direito" \
+        base = "De acordo com o Art XXX do CDC, quando houver cobranca indevida, o consumidor tem direito " \
         "a repeticao do indebito em dobro, que foi validado em jurisprudencia XXXX"
+        ###COLOCAR ENSEJO A DANO MORAL AQUI
         self.law.append(base)
         
     def set_requests(self):
