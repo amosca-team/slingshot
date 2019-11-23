@@ -17,6 +17,7 @@ class Author(Part):
 
     def _add(self):
         self.petition.author.extend(self.parraf)
+        self.petition.author_name = self.name
 
 class CounterPart(Part):
     def __init__(self, name, address, cnpj):
@@ -82,7 +83,8 @@ class CobrancaIndevida(Request):
     def __init__(self, tarifas_cobradas, valor, docs):
         super(CobrancaIndevida, self).__init__()
         self.layer_type = "Cobranca indevida"
-        self.value = valor
+        self.valor_cobrado = valor
+        self.value = 2 * valor
         self.tarifas = tarifas_cobradas
         self.docs = docs
         self.set_texts()
@@ -97,7 +99,7 @@ class CobrancaIndevida(Request):
         tarifas = str(self.tarifas).replace("[", "").replace("]", "")
         base = "Conforme a documentacao anexa {}, a parte re cobrou indevidamente " \
         "da autora valores que perfazezm o montate de R$ {}, sob a invalida justificativa " \
-        " de corresponderem a {}".format(docs, self.value, tarifas)
+        " de corresponderem a {}".format(docs, self.valor_cobrado, tarifas)
         t1 = "A parte autora ressalta que jamais anuiu com a cobranca desses valores, seja como prestacao de servicos adicionais" \
         ", reajuste no plano ou qualquer outro tipo de cobranca, de maneira que resta ilicita e incorreta a referida cobranca de valores."
         self.fact.append(base)
@@ -106,12 +108,14 @@ class CobrancaIndevida(Request):
     def set_law(self):
         base = "De acordo com o Art XXX do CDC, quando houver cobranca indevida, o consumidor tem direito " \
         "a repeticao do indebito em dobro, que foi validado em jurisprudencia XXXX"
-        ###COLOCAR ENSEJO A DANO MORAL AQUI
+        t1 = "Ainda de acordo com a respectiva lei XXXXX art XXXXX, a cobranca indevida nesses termos da ensejo a" \
+            "indenizacao por dano moral. O entendimento jurisprudencial e consoante."
         self.law.append(base)
+        self.law.append(t1)
         
     def set_requests(self):
         base = "A repeticao do indebito em dobro, de acordo com o exposto e no valor de R$ {}"
-        base.format(str(self.value * 2))
+        base = base.format(str(self.value * 2))
         self.request.append(base)
 
 class ImpossivelCancelar(Request):

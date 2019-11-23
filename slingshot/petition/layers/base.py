@@ -26,7 +26,7 @@ class Context(PetitionLayer):
         self.layer_type = "Contexto"
         self.fact = []
         self.priority = 100000
-        self.value = 0.
+        self.value = None
 
     def _add(self):
         self.petition.facts.extend(self.fact)
@@ -39,7 +39,7 @@ class Preliminary(PetitionLayer):
         self.layer_type = "Preliminar"
         self.preliminary_request = []
         self.priority = 1000
-        self.value = 0.
+        self.value = None
     
     def _add(self):
         self.petition.preliminars.extend(self.preliminary_request)
