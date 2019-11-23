@@ -10,6 +10,17 @@ class Petition():
         To organize your text, you use the .compile method, and then can visualize it with .print_text.
 
         Dano moral is a specific type of request that must be saved as an independent variable due to its importance on the requests
+
+        The attributes are:
+        :value of the cause and dano moral: values on which the judgement will be based
+        :author -> text list that states the author of the petition
+        :counter_part -> text list that states the counter_part of the petition
+        :pet_type -> bureaucratic type of the petition (string)
+        :perliminars -> text list that states requests about some rules on which the judgement will be based
+        :the law -> text list that states the legal explanation of the requests of the petition
+        :facts -> text list that states the facts that made the author to ask for his requests
+        :requests -> text list that states what the author is actually asking for
+        :docs -> the documents that proof that the author is telling the proof (text list)
         """
         self.value_of_cause = 0
         self.dano_moral = 0
