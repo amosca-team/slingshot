@@ -86,6 +86,10 @@ class Request(PetitionLayer):
         self.docs = []
         
     def _add(self):
+        """
+        this method puts all the text that the layers generate for the petition on its right places 
+            for later printing and saving
+        """
         self.petition.value_of_cause += self.value
         self.petition.dano_moral += self.dano_moral
         self.petition.facts.extend(self.fact)

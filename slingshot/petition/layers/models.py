@@ -1,6 +1,21 @@
+"""
+On this module we show some example implementations of the petition layers implementation
+With these layers, you can create a petition to sue a Telecom corporation for some damage they brought you
+"""
+
+
 from .base import *
 
 class Author(Part):
+
+    """
+    This layer introduces the author of the petition and creates the text where it states the who the author is
+    On Brazil, the author must have a CPF (SSN-like), profession, address and name.
+    We inherit from the Part layer and introduce some more attributes and methods.
+
+    The create parraf create th author declaring statement 
+    The _add method introduces them on the right places of the petition
+    """
     def __init__(self, name, address, cpf, profession):
         super(Author, self).__init__(name, address)
         self.layer_type = "Autor"
@@ -20,6 +35,15 @@ class Author(Part):
         self.petition.author_name = self.name
 
 class CounterPart(Part):
+    """
+    This layer introduces the counterpart of the petition and creates the text where it states the who the counterpart is
+    On Brazil, the author must have a CNPJ (register number-like), profession, address and name.
+    We inherit from the Part layer and introduce some more attributes and methods.
+
+    The create parraf create the counterpart declaring statement 
+    The _add method introduces them on the right places of the petition
+    """
+    
     def __init__(self, name, address, cnpj):
         super(CounterPart, self).__init__(name, address)
         self.layer_type = "Parte Re"
@@ -115,7 +139,7 @@ class CobrancaIndevida(Request):
         
     def set_requests(self):
         base = "A repeticao do indebito em dobro, de acordo com o exposto e no valor de R$ {}"
-        base = base.format(str(self.value * 2))
+        base = base.format(str(self.value))
         self.request.append(base)
 
 class ImpossivelCancelar(Request):
