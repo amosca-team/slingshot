@@ -94,28 +94,28 @@ class Petition():
         This method prints the petition text on the screen and indexes each parraf
         """
         idx = 1
-        print("EXMO SR JUIZ DE DIREITO DO JEC DO TJSP", end="\n\n\n\n")
+        print("### **EXMO SR JUIZ DE DIREITO DO JEC DO TJSP**", end="\n\n\n\n")
         for text in self.author:
             print(text)
         for text in self.counter_part:
             print(text, end="\n\n")
         if len(self.preliminars) > 0:
-            print("PRELIMINARES")
+            print("#### **PRELIMINARES")
             for text in self.preliminars:
-                print(str(idx) + ". " + text)
+                print("**" + str(idx) + "."+ "** " + text, end="\n\n")
                 idx += 1
-        print("\nDOS FATOS")
+        print("\n#### **DOS FATOS**")
         for text in self.facts:
-            print(str(idx) + ". " + text)
+            print("**" + str(idx) + "."+ "** " + text, end="\n\n")
             idx += 1
-        print("\nDOS DIREITO")
+        print("\n#### **DOS DIREITO**")
         for text in self.the_law:
-            print(str(idx) + ". " + text)
+            print("**" + str(idx) + "."+ "** " + text, end="\n\n")
             idx += 1
-        print("\nDOS PEDIDOS")
+        print("\n#### **DOS PEDIDOS**")
         p = 1
         for text in self.requests:
-            print(str(p) + ". " + text)
+            print("**" + str(p) + "."+ "** " + text, end="\n\n")
             p += 1
         print("\nTermos em que pede deferimento")
         print(self.author_name)
