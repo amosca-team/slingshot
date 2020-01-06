@@ -171,11 +171,16 @@ class RegistroSerasa(Request):
         self.fact.append(t1)
         
     def set_law(self):
-        base = "De acordo com o Art XXX do CDC/CC, quando houver registro indevido de divida " \
-        "em empresas de score de credito, o consumidor tem direito a retirada do nome do registro" \
-        "e compensacao pelo dano moral a sua imagem. " \
-        "Esse entendimento foi validado em jurisprudencia XXXX"
+        base = "De acordo com o Art 42, caput do CDC/CC, o consumidor não será exposto a ridículo quando da cobrança de dívidas. (*Art. 42. Na cobrança de débitos, o consumidor inadimplente não será exposto a ridículo, nem será submetido a qualquer tipo de constrangimento ou ameaça.*)"
+        t1 = "Ocorre que, neste caso, isso aconteceu, tendo em vista que a inserção de seu nome indevidamente no cadastro de devedores " \
+        "o expõe ao ridículo e abala a sua imagem, além de impedir que adquira crédito no mercado. Por isso, deve haver remoção imediata de seu nome dos respectivos cadastros "\
+        "e compensacao pelo dano moral e à sua imagem. "
+        t2 = "Esse entendimento foi validado em jurisprudencia, que, inclusive, reconhece a existência de dano moral "\
+            "para esse tipo de caso de inclusão indevida no cadastro de devedores do Serasa:\n"\
+            """ * PRESTAÇÃO DE SERVIÇOS DE TELEFONIA AÇÃO DE CANCELAMENTO DE COBRANÇA INDEVIDA E DE REGISTRO INDEVIDO JUNTO AO SERASA/SPCC/C REPARAÇÃO DE DANOS MORAIS COM PEDIDO DE TUTELA ANTECIPADA INEXIGIBILIDADE DOS DÉBITOS SERVIÇO CONTRATADO FUNCIONAMENTO NÃO COMPROVADO PESSOA JURÍDICA NEGATIVAÇÃO INDEVIDA DO NOME DA AUTORA EM ÓRGÃOS DE PROTEÇÃO AO CRÉDITO DANO MORALCARACTERIZADO SENTENÇA QUE ARBITROU QUANTIA EM CONFORMIDADE COMOS CRITÉRIOS DE PROPORCIONALIDADE E RAZOABILIDADE INDENIZAÇÃO DEVIDA FIXADA EM R$ 10.000,00 VALOR MANTIDO SENTENÇA MANTIDA. *TJSP- Apelação cível AC :  0058685-32.2012.8.26.0114 publicado em 24/01/2017*"""
         self.law.append(base)
+        self.law.append(t1)
+        self.law.append(t2)
         
     def set_requests(self):
         base = "A imediata retirada da anotacao nas empresas de Score de credito da alegada divida" \
