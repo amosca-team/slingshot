@@ -1,6 +1,9 @@
 """
 On this module we show some example implementations of the petition layers implementation
 With these layers, you can create a petition to sue a Telecom corporation for some damage they brought you
+
+As you may see on the next examples, all we have to do is, using the classes of the lib, create reusable
+content blocks that can set its parts to the correspondent part of the document (facts, law, requests)
 """
 
 
@@ -21,12 +24,12 @@ class ContratoServicos(Context):
         
     def set_fact(self):
         docs = str(self.docs).replace("[", "").replace("]", "")
-        base = "Conforme da documentacao anexa ({}) parte autora firmou com a parte requerida " \
-        "contrato de prestacao de servicos, mais especificamente por meio de {}. Ocorre que, durante " \
-        "a execucao do contrato, a re teve uma serie de condutas que passaram a prejudicar a autora."
+        base = "Conforme a documentação anexa ({}) parte autora firmou com a parte requerida " \
+        "contrato de prestação de serviços, mais especificamente por meio de {}. Ocorre que, durante " \
+        "a execução do contrato, a parte ré teve uma série de condutas que passaram a prejudicar a autora."
         base = base.format(docs, self.service)
-        t1 = "Ainda conforme a documentacao, a parte autora tentou de todos os meios amigaveis possiveis" \
-        "para a solucao dos problemas que seguem, tornando esta acao a unica solucao possivel."
+        t1 = "Ainda conforme a documentação, a parte autora tentou de todos os meios amigáveis possiveis" \
+        "para a solução dos problemas que seguem, tornando esta ação a unica solução possível."
         self.fact.append(base)
         self.fact.append(t1)
 
@@ -183,7 +186,7 @@ class RegistroSerasa(Request):
         self.law.append(t2)
         
     def set_requests(self):
-        base = "A imediata retirada da anotacao nas empresas de Score de credito da alegada divida" \
+        base = "A imediata retirada da anotacao nas empresas de Score de credito da alegada divida " \
         "indevidamente cobrada pela parte re"
         base.format(str(self.value * 2))
         self.request.append(base)
