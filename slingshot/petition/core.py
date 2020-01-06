@@ -1,3 +1,4 @@
+import markdown
 class Petition():
 
     def __init__(self):
@@ -108,7 +109,7 @@ class Petition():
         for text in self.facts:
             print("**" + str(idx) + "."+ "** " + text, end="\n\n")
             idx += 1
-        print("\n#### **DOS DIREITO**")
+        print("\n#### **DO DIREITO**")
         for text in self.the_law:
             print("**" + str(idx) + "."+ "** " + text, end="\n\n")
             idx += 1
@@ -120,5 +121,49 @@ class Petition():
         print("\nTermos em que pede deferimento")
         print(self.author_name)
 
-    def save_txt(self):
-        pass
+    def get_text(self):
+
+        """
+        Gets the whole petition as a very big string
+        """
+        idx = 1
+        as_txt = ''
+        as_txt = as_txt + ("### **EXMO SR JUIZ DE DIREITO DO JEC DO TJSP**" + "<br/><br/><br/><br/><br/><br/><br/><br/><br/>\n\n")
+        for text in self.author:
+            as_txt = as_txt + text + "\n\n"
+        for text in self.counter_part:
+            as_txt = as_txt + text + "\n\n"
+        if len(self.preliminars) > 0:
+            as_txt = as_txt + ("\n\n<br/><br/>\n#### **PRELIMINARES**\n\n")
+            for text in self.preliminars:
+                as_txt = as_txt + "\n\n" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
+                idx += 1
+        as_txt = as_txt + ("\n\n<br/><br/>\n#### **DOS FATOS**\n\n")
+        for text in self.facts:
+            as_txt = as_txt + "\n\n" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
+            idx += 1
+        as_txt = as_txt + ("\n\n<br/><br>\n#### **DO DIREITO**\n\n")
+        for text in self.the_law:
+            as_txt = as_txt + "\n\n" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
+            idx += 1
+        as_txt = as_txt + "\n\n<br/><br/>\n#### **DOS PEDIDOS**\n\n"
+        p = 1
+        for text in self.requests:
+            as_txt = as_txt + "\n\n" + ("**" + str(p) + "."+ "** " + text + "\n\n")
+            p += 1
+        as_txt = as_txt + ("\n<br/><br/>Termos em que pede deferimento\n\n")
+        as_txt = as_txt + self.author_name
+        as_txt = as_txt + "\n\n" + '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">'
+        as_txt = as_txt + '<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>\
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>\
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>'
+        return as_txt
+
+    def save_as_html(self, path):
+        txt = self.get_text()
+        html = markdown.markdown(txt)
+        html = '<div class=container>' + html + '</div<'
+        html = '<div class="text-justify">\n' + html + '</div>'
+        html = '<main class="bd-masthead" id="content" role="main">' + html + '</main>'
+        with open(path, "w") as file:
+            file.write(html)
