@@ -100,7 +100,7 @@ class Petition():
         for text in self.counter_part:
             print(text, end="\n\n")
         if len(self.preliminars) > 0:
-            print("#### **PRELIMINARES")
+            print("#### **PRELIMINARES**")
             for text in self.preliminars:
                 print("**" + str(idx) + "."+ "** " + text, end="\n\n")
                 idx += 1

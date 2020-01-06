@@ -6,59 +6,6 @@ With these layers, you can create a petition to sue a Telecom corporation for so
 
 from .base import *
 
-class Author(Part):
-
-    """
-    This layer introduces the author of the petition and creates the text where it states the who the author is
-    On Brazil, the author must have a CPF (SSN-like), profession, address and name.
-    We inherit from the Part layer and introduce some more attributes and methods.
-
-    The create parraf create th author declaring statement 
-    The _add method introduces them on the right places of the petition
-    """
-    def __init__(self, name, address, cpf, profession):
-        super(Author, self).__init__(name, address)
-        self.layer_type = "Autor"
-        self.CPF = cpf
-        self.profession = profession
-        self.priority = 1000000000
-        self.create_parraf()
-    
-    def create_parraf(self):
-        base = "{}, {}, domiciliado em {}, sob o CPF {} vem diante da Vossa Exa. ajuizar"
-        base = base.format(self.name, self.profession, self.address, self.CPF)
-        self.parraf.append(base)
-
-
-    def _add(self):
-        self.petition.author.extend(self.parraf)
-        self.petition.author_name = self.name
-
-class CounterPart(Part):
-    """
-    This layer introduces the counterpart of the petition and creates the text where it states the who the counterpart is
-    On Brazil, the author must have a CNPJ (register number-like), profession, address and name.
-    We inherit from the Part layer and introduce some more attributes and methods.
-
-    The create parraf create the counterpart declaring statement 
-    The _add method introduces them on the right places of the petition
-    """
-    
-    def __init__(self, name, address, cnpj):
-        super(CounterPart, self).__init__(name, address)
-        self.layer_type = "Parte Re"
-        self.CNPJ = cnpj
-        self.priority = 1000000000 - 1
-        self.create_parraf()
-    
-    def create_parraf(self):
-        base = """Em face de {}, com sede em {}, sob o CNPJ {}, pelas razoes de fato e Direito aqui expostas:"""
-        base = base.format(self.name, self.address, self.CNPJ)
-        self.parraf.append(base)
-
-    def _add(self):
-        self.petition.counter_part.extend(self.parraf)
-
 class ContratoServicos(Context):
     def __init__(self, service, docs):
         super(ContratoServicos, self).__init__()
@@ -95,8 +42,12 @@ class InversaoOnusProva(Preliminary):
     
     def set_preliminary(self):
         base = "Em virtude da nitida situacao de hipossuficiente da parte autora, " \
-        "do art XXXX do CDC e art XXX do CPC e CC e dos julgados XXXX, faz-se necessaria" \
+        "e do art 6o, inciso VIII do CDC e, faz-se necessaria" \
         "inversao do onus da prova em favor da parte autora neste processo."
+        base = base + "\n" \
+        + """* *Art. 6°. São direitos básicos do consumidor:* \n* *(...) VIII – a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências (...).*"""
+
+
         self.preliminary_request.append(base)
         
     def set_request(self):
@@ -104,13 +55,15 @@ class InversaoOnusProva(Preliminary):
         self.request.append(base)
 
 class CobrancaIndevida(Request):
-    def __init__(self, tarifas_cobradas, valor, docs):
+    def __init__(self, tarifas_cobradas, valor, docs, conta_paga=False):
         super(CobrancaIndevida, self).__init__()
         self.layer_type = "Cobranca indevida"
         self.valor_cobrado = valor
         self.value = 2 * valor
         self.tarifas = tarifas_cobradas
+        self.conta_paga = conta_paga
         self.docs = docs
+
         self.set_texts()
     
     def set_texts(self):
@@ -123,22 +76,29 @@ class CobrancaIndevida(Request):
         tarifas = str(self.tarifas).replace("[", "").replace("]", "")
         base = "Conforme a documentacao anexa {}, a parte re cobrou indevidamente " \
         "da autora valores que perfazezm o montate de R$ {}, sob a invalida justificativa " \
-        " de corresponderem a {}".format(docs, self.valor_cobrado, tarifas)
-        t1 = "A parte autora ressalta que jamais anuiu com a cobranca desses valores, seja como prestacao de servicos adicionais" \
+        " de corresponderem a {}".format(docs, self.valor_cobrado, self.tarifas)
+        if self.conta_paga:
+            base = base + ", cobrando inclusive valores que já foram pagos, como provam os anexos."
+        else:
+            base = base + "."
+        t1 = "A parte autora ressalta que jamais anuiu com a cobranca indevida desses valores, seja como prestacao de servicos adicionais" \
         ", reajuste no plano ou qualquer outro tipo de cobranca, de maneira que resta ilicita e incorreta a referida cobranca de valores."
         self.fact.append(base)
         self.fact.append(t1)
         
     def set_law(self):
-        base = "De acordo com o Art XXX do CDC, quando houver cobranca indevida, o consumidor tem direito " \
-        "a repeticao do indebito em dobro, que foi validado em jurisprudencia XXXX"
-        t1 = "Ainda de acordo com a respectiva lei XXXXX art XXXXX, a cobranca indevida nesses termos da ensejo a" \
-            "indenizacao por dano moral. O entendimento jurisprudencial e consoante."
+        base = "De acordo com o Art 42, Parágrafo Único, do CDC, quando houver cobranca indevida, o consumidor tem direito " \
+        "a repeticao do indebito em dobro (*Parágrafo único. O consumidor cobrado em quantia indevida tem direito à repetição do indébito, por valor igual ao dobro do que pagou em excesso, acrescido de correção monetária e juros legais, salvo hipótese de engano justificável.*)"
+        t1 = "O mesmo ainda é encontra base na jurisprudência, que reconhece, inclusive, a exitência de dano moral em caso de cobrança indevida - inclusive por causa da ocorrência de desvio produtivo do consumidor:" \
+            "\n * PRESTAÇÃO DE SERVIÇOS INEXISTENTE - COBRANÇA INDEVIDA - RESTITUIÇÃO EM DOBRO E COMPENSAÇÃO" \
+            "POR DANO MORAL – RECONHECIMENTO – FIXAÇÃO EM R$ 7.000,00 - PRETENSÃO DA AUTORA EM" \
+            "MAJORAÇÃO – IMPERTINÊNCIA - RECURSO NÃO PROVIDO. - *Tribunal de Justiça de São Paulo TJ-SP - Apelação Cível : AC" \
+            "1000854-52.2018.8.26.0161*"
         self.law.append(base)
         self.law.append(t1)
         
     def set_requests(self):
-        base = "A repeticao do indebito em dobro, de acordo com o exposto e no valor de R$ {}"
+        base = "A repeticao do indebito em dobro, de acordo com o exposto e no valor de R$ {}."
         base = base.format(str(self.value))
         self.request.append(base)
 
@@ -173,10 +133,11 @@ class ImpossivelCancelar(Request):
         
     def set_law(self):
         base = "Ademais do dano moral, cuja necessidade de ressarcimento tem resguardo legislativo" \
-        "no Codigo Civil art XXXX, o mesmo, para esse tipo de caso do consumidor, encontra respaldo no" \
-        "art XXXX do CDC"
+        "no Codigo Civil art 186, 188 e 187, o mesmo, para esse tipo de caso do consumidor, encontra respaldo no" \
+        "art 14, caput do CDC (*Art. 14. O fornecedor de serviços responde, independentemente da existência de culpa, pela reparação dos danos causados aos consumidores por defeitos relativos à prestação dos serviços, bem como por informações insuficientes ou inadequadas sobre sua fruição e riscos.*)"
         t1 = "Existe ainda respaldo jurisprudencial no sentido de entender a gravidade e a necessidade de " \
-        "ressarcimento deste tipo de dano, como nos julgados XXXX"
+        "ressarcimento deste tipo de dano, inclusive por causa do desvio produtivo do consumidor, como ja foi reconhecido pelo STJ:"\
+        """\n* PROCESSO CIVIL E DIREITO DO CONSUMIDOR. RECURSO ESPECIAL. AÇÃO CIVIL PÚBLICA. NEGATIVA DE PRESTAÇÃO JURISDICIONAL. AUSÊNCIA. JUNTADA DE DOCUMENTOS COM A APELAÇÃO. POSSIBILIDADE. VÍCIO DO PRODUTO. REPARAÇÃO EM 30 DIAS. RESPONSABILIDADE OBJETIVA DO COMERCIANTE.1. Ação civil pública ajuizada em 07/01/2013, de que foi extraído o presente recurso especial, interposto em 08/06/2015 e concluso ao Gabinete em 25/08/2016. Julgamento pelo CPC/73.2. Cinge-se a controvérsia a decidir sobre: (i) a negativa de prestação jurisdicional (art. 535, II, do CPC/73); (ii) a preclusão operada quanto à produção de prova (arts. 462 e 517 do CPC/73); (iii) a responsabilidade do comerciante no que tange à disponibilização e prestação de serviço de assistência técnica (art. 18, caput e § 1º, do CDC).3. Devidamente analisadas e discutidas as questões de mérito, e fundamentado o acórdão recorrido, de modo a esgotar a prestação jurisdicional, não há que se falar em violação do art. 535, II, do CPC/73.4. Esta Corte admite a juntada de documentos, que não apenas os produzidos após a inicial e a contestação, inclusive na via recursal, desde que observado o contraditório e ausente a má-fé. **5. À frustração do consumidor de adquirir o bem com vício, não é razoável que se acrescente o desgaste para tentar resolver o problema ao qual ele não deu causa, o que, por certo, pode ser evitado – ou, ao menos, atenuado – se o próprio comerciante participar ativamente do processo de reparo, intermediando a relação entre consumidor e fabricante, inclusive porque, juntamente com este, tem o dever legal de garantir a adequação do produto oferecido ao consumo. 6. À luz do princípio da boa-fé objetiva, se a inserção no mercado do produto com vício traz em si, inevitavelmente, um gasto adicional para a cadeia de consumo, esse gasto deve ser tido como ínsito ao risco da atividade, e não pode, em nenhuma hipótese, ser suportado pelo consumidor. Incidência dos princípios que regem a política nacional das relações de consumo, em especial o da vulnerabilidade do consumidor (art. 4º, I, do CDC) e o da garantia de adequação, a cargo do fornecedor (art. 4º, V, do CDC), e observância do direito do consumidor de receber a efetiva reparação de danos patrimoniais sofridos por ele (art. 6º, VI, do CDC).** 7. Como a defesa do consumidor foi erigida a princípio geral da atividade econômica pelo art. 170, V, da Constituição Federal, é ele – consumidor – quem deve escolher a alternativa que lhe parece menos onerosa ou embaraçosa para exercer seu direito de ter sanado o vício em 30 dias – levar o produto ao comerciante, à assistência técnica ou diretamente ao fabricante –, não cabendo ao fornecedor impor-lhe a opção que mais convém. 8. Recurso especial desprovido. *RESP - 1634851, Rel. Min. Nancy Andrighi*"""
         self.law.append(base)
         self.law.append(t1)
         
@@ -223,47 +184,6 @@ class RegistroSerasa(Request):
         self.request.append(base)
 
 
-class CobrancaContaPaga(Request):
-    def __init__(self, divida_cobrada, valor, docs, dano_moral=1000):
-        super(CobrancaContaPaga, self).__init__()
-        self.layer_type = "Cobranca indevida"
-        self.value = valor * 2 + dano_moral
-        self.divida_cobrada = divida_cobrada
-        self.dano_moral = dano_moral
-        self.docs = docs
-        self.set_texts()
-    
-    def set_texts(self):
-        self.set_facts()
-        self.set_law()
-        self.set_requests()
-    
-    def set_facts(self):
-        docs = str(self.docs).replace("[", "").replace("]", "")
-        base = "Conforme a documentacao anexa {}, a parte re cobrou indevidamente " \
-        "da autora valores que perfazezm o montate de R$ {}, a titulo de {}. " \
-        "Ocorre que, como provam os documentos anexos, a conta ja foi paga."
-        t1 = "Essa cobranca em duplicidade causou grande aborrecimento a parte autora, " \
-        "que teve que perder tempo em provar que pagou tudo e ainda ajuizar acao judicial, de forma " \
-        "que essa situacao lhe causou dano moral."
-        base = base.format(docs, self.value, self.divida_cobrada)
-        self.fact.append(base)
-        
-    def set_law(self):
-        base = "De acordo com o Art XXX do CDC, quando houver cobranca indevida, o consumidor tem direito" \
-        "a repeticao do indebito em dobro, que foi validado em jurisprudencia XXXX."
-        t1 = "A lei CDC/CC art XXX e jurisprudencia XXXX tambem reconhecem a existencia de dano moral" \
-        "nessa situacao de cobranca de divida paga" \
-        ", de forma que resta necessaria compensacao por parte da parte re pelo " \
-        "moral causado a autora."
-        self.law.append(base)
-        self.law.append(t1)
-        
-    def set_requests(self):
-        base = "A repeticao do indebito da conta indevidamente cobrada pela segunda vez"\
-        " em dobro, de acordo com o exposto e no valor de R$ {}"
-        base = base.format(str(self.value * 2))
-        self.request.append(base)
 
 class DanoMoral(Request):
     def __init__(self, dano_moral):
