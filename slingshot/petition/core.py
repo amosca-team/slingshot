@@ -1,4 +1,7 @@
 import markdown
+import pdfkit
+import pypandoc
+
 class Petition():
 
     def __init__(self):
@@ -36,6 +39,7 @@ class Petition():
 
         self._request_obj_list = []
         self.compiled = False
+        self.file_name = None
         pass
 
     def summary(self):
@@ -121,7 +125,7 @@ class Petition():
         print("\nTermos em que pede deferimento")
         print(self.author_name)
 
-    def get_text(self):
+    def _get_text(self):
 
         """
         Gets the whole petition as a very big string
@@ -159,11 +163,34 @@ class Petition():
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>'
         return as_txt
 
-    def save_as_html(self, path):
-        txt = self.get_text()
+    def _save_as_html(self, path):
+        "Saves as .html file centralized, uses bootstrap"
+        txt = self._get_text()
+        self.file_name = path
         html = markdown.markdown(txt)
         html = '<div class=container>' + html + '</div<'
         html = '<div class="text-justify">\n' + html + '</div>'
         html = '<main class="bd-masthead" id="content" role="main">' + html + '</main>'
-        with open(path, "w") as file:
+        html = '<head><meta charset="utf-8"></head>' + html
+        with open(path+'.html', "w") as file:
             file.write(html)
+    
+    def _save_as_pdf(self):
+        "gathers converts the html saved file to pdf"
+        assert self.file_name is not None, "The html must be generated first"
+        pdfkit.from_file(self.file_name+'.html', self.file_name+'.pdf')
+
+    def _save_as_docx(self):
+        output = pypandoc.convert(source=self.file_name+'.html',
+                          format='html',
+                          to='docx',
+                          outputfile=self.file_name+'.docx')
+
+    def save_document(self, path, to_pdf=True, to_word=False):
+        self._save_as_html(path)
+        if to_pdf:
+            self._save_as_pdf()
+        if to_word:
+            self._save_as_docx()
+
+
