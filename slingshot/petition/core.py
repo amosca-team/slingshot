@@ -57,7 +57,6 @@ class Petition():
             print("{}".format(i.layer_type))
         print("#############")
         print("Valor da causa: R$ {}".format(self.value_of_cause))
-        
 
     def add(self, layer):
         """

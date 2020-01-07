@@ -121,12 +121,12 @@ class ImpossivelCancelar(Request):
     
     def set_facts(self):
         base = "Ocorre que a parte autora vem tentando, sem sucesso, cancelar seu plano e, depois " \
-        "de varias tentativas, nao conseguiu ter sucesso. Isso se deu por conduta ativa e dolosa " \
-        "da parte re que, desnecessariamente demora excessivamente e dificulta toda forma de comunicacao" \
+        "de varias tentativas, não conseguiu ter sucesso. Isso se deu por conduta ativa e dolosa " \
+        "da parte ré que, desnecessariamente demora excessivamente e dificulta toda forma de comunicação" \
         "no que diz respeito ao cancelamento do plano."
-        t1 = "Vale dizer que a parte re sempre mostrou prontidao quando do momento da contratacao, mas " \
+        t1 = "Vale dizer que a parte ré sempre mostrou prontidao quando do momento da contratação, mas " \
         "quando se quis proceder o cancelamento, passou a agir com essa conduta desrespeitosa que causou " \
-        "grande desconforto e sentimento de humilhacao, traduzido em dano moral, para a parte autora."
+        "grande desconforto e sentimento de humilhação, traduzido em dano moral, para a parte autora."
         self.fact.append(base)
         self.fact.append(t1)
         if self.docs:
