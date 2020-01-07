@@ -12,8 +12,8 @@ from .base import *
 class ContratoServicos(Context):
     def __init__(self, service, docs):
         super(ContratoServicos, self).__init__()
-        self.layer_type = "Contexto - Prestacao de servicos"
-        self.pet_type = "Acao condenatoria com base no CDC"
+        self.layer_type = "Contexto - Prestação de serviços"
+        self.pet_type = "Ação condenatória com base no CDC"
         self.service = service
         self.docs = docs
         self.priority = 10000000

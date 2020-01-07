@@ -53,8 +53,8 @@ class Context(PetitionLayer):
 
     def _add(self):
         self.petition.facts.extend(self.fact)
+        self.petition.main_req_type = self.pet_type
         self.petition.pet_type = self.pet_type
-        self.petition.author.append(self.pet_type)
 
 class Preliminary(PetitionLayer):
     """

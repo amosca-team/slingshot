@@ -37,6 +37,7 @@ class Petition():
         self.requests = []
         self.docs = []
 
+        self.main_req_type = None
         self._request_obj_list = []
         self.compiled = False
         self.file_name = None
@@ -101,6 +102,7 @@ class Petition():
         print("### **EXMO SR JUIZ DE DIREITO DO JEC DO TJSP**", end="\n\n\n\n")
         for text in self.author:
             print(text)
+        print("**" + self.main_req_type.upper()+ "**" + "\n\n")
         for text in self.counter_part:
             print(text, end="\n\n")
         if len(self.preliminars) > 0:
@@ -131,28 +133,29 @@ class Petition():
         """
         idx = 1
         as_txt = ''
-        as_txt = as_txt + ("### **EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DO JUIZADO ESPECIAL CÍVEL DO TRIBUNAL DE JUSTIÇA DO ESTADO DE SÃO PAULO**" + "<br/><br/><br/><br/><br/><br/><br/><br/><br/>\n\n")
+        as_txt = as_txt + ("### **EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DO JUIZADO ESPECIAL CÍVEL DO TRIBUNAL DE JUSTIÇA DO ESTADO DE SÃO PAULO**" + "<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>\n\n")
         for text in self.author:
             as_txt = as_txt + text + "\n\n"
+        as_txt = as_txt + "<br/>**" + self.main_req_type.upper()+ "**<br/><br/>" + "\n\n"
         for text in self.counter_part:
-            as_txt = as_txt + text + "\n\n"
+            as_txt = as_txt + text + "\n\n<br/><br/>"
         if len(self.preliminars) > 0:
             as_txt = as_txt + ("\n\n<br/><br/>\n#### **PRELIMINARES**\n\n")
             for text in self.preliminars:
-                as_txt = as_txt + "\n\n" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
+                as_txt = as_txt + "\n\n<br/>" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
                 idx += 1
         as_txt = as_txt + ("\n\n<br/><br/>\n#### **DOS FATOS**\n\n")
         for text in self.facts:
-            as_txt = as_txt + "\n\n" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
+            as_txt = as_txt + "\n\n<br/>" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
             idx += 1
-        as_txt = as_txt + ("\n\n<br/><br>\n#### **DO DIREITO**\n\n")
+        as_txt = as_txt + ("\n\n<br/><br/>\n#### **DO DIREITO**\n\n")
         for text in self.the_law:
-            as_txt = as_txt + "\n\n" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
+            as_txt = as_txt + "\n\n<br/>" + ("**" + str(idx) + "."+ "** " + text + "\n\n")
             idx += 1
         as_txt = as_txt + "\n\n<br/><br/>\n#### **DOS PEDIDOS**\n\n"
         p = 1
         for text in self.requests:
-            as_txt = as_txt + "\n\n" + ("**" + str(p) + "."+ "** " + text + "\n\n")
+            as_txt = as_txt + "\n\n<br/>" + ("**" + str(p) + "."+ "** " + text + "\n\n")
             p += 1
         as_txt = as_txt + ("\n<br/><br/>Termos em que pede deferimento\n\n")
         as_txt = as_txt + self.author_name
@@ -164,10 +167,10 @@ class Petition():
 
     def _save_as_html(self, path):
         "Saves as .html file centralized, uses bootstrap"
-        txt = self._get_text()
+        txt = self._get_text() 
         self.file_name = path
         html = markdown.markdown(txt)
-        html = '<div class=container>' + html + '</div<'
+        html = '<div class=container style="font-size:25px">' + html + '</div<'
         html = '<div class="text-justify">\n' + html + '</div>'
         html = '<main class="bd-masthead" id="content" role="main">' + html + '</main>'
         html = '<head><meta charset="utf-8"></head>' + html
