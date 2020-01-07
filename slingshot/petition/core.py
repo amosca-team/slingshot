@@ -138,7 +138,7 @@ class Petition():
             as_txt = as_txt + text + "\n\n"
         as_txt = as_txt + "<br/>**" + self.main_req_type.upper()+ "**<br/><br/>" + "\n\n"
         for text in self.counter_part:
-            as_txt = as_txt + text + "\n\n<br/><br/>"
+            as_txt = as_txt + text + "\n\n<br/><br/><br/><br/>"
         if len(self.preliminars) > 0:
             as_txt = as_txt + ("\n\n<br/><br/>\n#### **PRELIMINARES**\n\n")
             for text in self.preliminars:
