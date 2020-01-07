@@ -36,7 +36,7 @@ class ContratoServicos(Context):
 class InversaoOnusProva(Preliminary):
     def __init__(self):
         super(InversaoOnusProva, self).__init__()
-        self.layer_type = "Preliminar - Inversao onus da prova"
+        self.layer_type = "Preliminar - Inversao ônus da prova"
         self.set_text()
     
     def set_text(self):
@@ -46,15 +46,15 @@ class InversaoOnusProva(Preliminary):
     def set_preliminary(self):
         base = "Em virtude da nitida situacao de hipossuficiente da parte autora, " \
         "e do art 6o, inciso VIII do CDC e, faz-se necessaria" \
-        "inversao do onus da prova em favor da parte autora neste processo."
+        "inversão do ônus da prova em favor da parte autora neste processo."
         base = base + "\n" \
-        + """* *Art. 6°. São direitos básicos do consumidor:* \n* *(...) VIII – a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências (...).*"""
+        + """\n\n* *Art. 6°. São direitos básicos do consumidor:* \n* *(...) VIII – a facilitação da defesa de seus direitos, inclusive com a inversão do ônus da prova, a seu favor, no processo civil, quando, a critério do juiz, for verossímil a alegação ou quando for ele hipossuficiente, segundo as regras ordinárias de experiências (...).*"""
 
 
         self.preliminary_request.append(base)
         
     def set_request(self):
-        base = "Seja deferida a inversao do onus da prova em favor da parte autora."
+        base = "Seja deferida a inversão do onus da prova em favor da parte autora."
         self.request.append(base)
 
 class CobrancaIndevida(Request):
@@ -101,7 +101,7 @@ class CobrancaIndevida(Request):
         self.law.append(t1)
         
     def set_requests(self):
-        base = "A repeticao do indebito em dobro, de acordo com o exposto e no valor de R$ {}."
+        base = "A repetição do indébito em dobro, de acordo com o exposto e no valor de R$ {}."
         base = base.format(str(self.value))
         self.request.append(base)
 
@@ -145,7 +145,7 @@ class ImpossivelCancelar(Request):
         self.law.append(t1)
         
     def set_requests(self):
-        base = "O cancelamento imediato de todos os servicos que a parte re se recusou a cancelar ou dificultou o cancelamento."
+        base = "O cancelamento imediato de todos os serviços que a parte ré se recusou a cancelar ou dificultou o cancelamento."
         self.request.append(base)
 
 class RegistroSerasa(Request):
@@ -164,10 +164,10 @@ class RegistroSerasa(Request):
     
     def set_facts(self):
         docs = str(self.docs).replace("[", "").replace("]", "")
-        base = "Conforme a documentacao anexa ({}), a parte re registrou divida inexistente " \
-        "da autora no valor o montate de R$ {}, nas empresas de score de credito, a titulo de {}. " \
-        "Ocorre que as referidas dividas nao existem".format(docs, self.value, self.suposta_divida)
-        t1 = "A parte autora ainda ressalta nao ser devedor contumaz, de forma que o registro indevido " \
+        base = "Conforme a documentação anexa ({}), a parte re registrou divida inexistente " \
+        "da autora no valor o montate de R$ {}, nas empresas de score de crédito, a título de {}. " \
+        "Ocorre que as referidas supostas dívidas nao existem e não justificam o cadastro nos bancos de score de crédito.".format(docs, self.value, self.suposta_divida)
+        t1 = "A parte autora ainda ressalta não ser devedor contumaz, de forma que o registro indevido " \
         "do nome nas empresas de score de credito caracteriza dano moral."
         self.fact.append(base)
         self.fact.append(t1)

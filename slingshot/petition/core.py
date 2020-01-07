@@ -132,7 +132,7 @@ class Petition():
         """
         idx = 1
         as_txt = ''
-        as_txt = as_txt + ("### **EXMO SR JUIZ DE DIREITO DO JEC DO TJSP**" + "<br/><br/><br/><br/><br/><br/><br/><br/><br/>\n\n")
+        as_txt = as_txt + ("### **EXCELENTÍSSIMO SENHOR DOUTOR JUIZ DE DIREITO DO JUIZADO ESPECIAL CÍVEL DO TRIBUNAL DE JUSTIÇA DO ESTADO DE SÃO PAULO**" + "<br/><br/><br/><br/><br/><br/><br/><br/><br/>\n\n")
         for text in self.author:
             as_txt = as_txt + text + "\n\n"
         for text in self.counter_part:
