@@ -30,4 +30,3 @@ Also, not only it is very easy to learn (as Python itseld), but part the knowled
   ## DISCLAIMER
   Slingshot is free to use, you can do whatever you want with it, just remember to cite "A Mosca" as the organization behind it. Also, we are not responsable for what you do with the code we've made.
   
-  ## 
