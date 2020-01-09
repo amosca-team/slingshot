@@ -23,4 +23,6 @@ Also, not only it is very easy to learn (as Python itseld), but part the knowled
  ## Slingshot basics
  Slingshot documents are built by chaineble-content blocks, **Layer** class objects that are wrapped by **Document** class objects. Once all the content blocks are added and chained to the **Document**, it has built-in methods that generates and formats it in both **pdf**, **docx** and **html** format. 
  
- You can use Slingshot features both to Y
+ There are two main tasks that can be performed with Slingshot:
+  * Creating new content block Layers
+  * Elaborating procedural Documents by chaining content block Layers
