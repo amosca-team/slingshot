@@ -3,12 +3,12 @@ from .base import *
 class Author(Part):
 
     """
-    This layer introduces the author of the petition and creates the text where it states the who the author is
+    This layer introduces the author of the procedural_document and creates the text where it states the who the author is
     On Brazil, the author must have a CPF (SSN-like), profession, address and name.
     We inherit from the Part layer and introduce some more attributes and methods.
 
     The create parraf create th author declaring statement 
-    The _add method introduces them on the right places of the petition
+    The _add method introduces them on the right places of the procedural_document
     """
     def __init__(self, name, address, cpf, profession):
         super(Author, self).__init__(name, address)
@@ -25,17 +25,17 @@ class Author(Part):
 
 
     def _add(self):
-        self.petition.author.extend(self.parraf)
-        self.petition.author_name = self.name
+        self.procedural_document.author.extend(self.parraf)
+        self.procedural_document.author_name = self.name
 
 class CounterPart(Part):
     """
-    This layer introduces the counterpart of the petition and creates the text where it states the who the counterpart is
+    This layer introduces the counterpart of the procedural_document and creates the text where it states the who the counterpart is
     On Brazil, the author must have a CNPJ (register number-like), profession, address and name.
     We inherit from the Part layer and introduce some more attributes and methods.
 
     The create parraf create the counterpart declaring statement 
-    The _add method introduces them on the right places of the petition
+    The _add method introduces them on the right places of the procedural_document
     """
     
     def __init__(self, name, address, cnpj):
@@ -51,7 +51,7 @@ class CounterPart(Part):
         self.parraf.append(base)
 
     def _add(self):
-        self.petition.counter_part.extend(self.parraf)
+        self.procedural_document.counter_part.extend(self.parraf)
 
 
 #AS MAIS IMPORTANTES TELES

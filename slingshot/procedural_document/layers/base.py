@@ -1,20 +1,20 @@
 """
-This module has the base layers for the petition models
-The layers, on petitions, must inherit from the ContentLayer in order for us to be sure they work
-They must have a title, a priority (for the Petition.compile() method) and a request.
+This module has the base layers for the procedural_document models
+The layers, on procedural_documents, must inherit from the procedural_documentLayer in order for us to be sure they work
+They must have a title, a priority (for the procedural_document.compile() method) and a request.
 The ._add method Must be implmented on the specific layer, as they may hava different text lists to extract from
-With those base layers we can create the ones that have actual content and can be used in chain to generate modular petitions
+With those base layers we can create the ones that have actual content and can be used in chain to generate modular procedural_documents
 """
 
 
-class ContentLayer():
+class ContentBlock():
 
     """
     This is our base model, and we treat it as an abstract class
     """
     def __init__(self):
         self.title = None
-        self.petition = None
+        self.procedural_document = None
         self.priority = 0
         self.layer_type = None
         self.value = None
@@ -24,7 +24,7 @@ class ContentLayer():
     def _add(self):
         raise NotImplementedError("This is an abstract method")
 
-class Part(ContentLayer):
+class Part(ContentBlock):
     """
     The part layer is also an abstract one (as has no ._add)
     its constructor receives name and address, so it can be from both the sued corporation or the author of the petiton
@@ -33,34 +33,34 @@ class Part(ContentLayer):
     def __init__(self, name, address):
         super(Part, self).__init__()
         self.layer_type = None
-        self.petition = None
+        self.procedural_document = None
         self.name = name
         self.address = address
         self.parraf = []
 
-class Context(ContentLayer):
+class Context(ContentBlock):
     """
     Context layers helps us in, on the start of the facts, set a start to the story
     For example, using a context layer we can state that the process happens in the context of a telephone plan
     Here we see that the ._add method sets our facts and has a very high priority.
     """
     def __init__(self):
-        super(ContentLayer, self).__init__()
+        super(ContentBlock, self).__init__()
         self.layer_type = "Contexto"
         self.fact = []
         self.priority = 100000
         self.value = None
 
     def _add(self):
-        self.petition.facts.extend(self.fact)
-        self.petition.main_req_type = self.pet_type
-        self.petition.pet_type = self.pet_type
+        self.procedural_document.facts.extend(self.fact)
+        self.procedural_document.main_req_type = self.pet_type
+        self.procedural_document.pet_type = self.pet_type
 
-class Preliminary(ContentLayer):
+class Preliminary(ContentBlock):
     """
-    The preliminary petitions are used to set some requests on how the process will be judged
+    The preliminary procedural_documents are used to set some requests on how the process will be judged
     They have also very high priority and a specific list of text for their request.
-    They extend the preiliminars and request list of hte petition where it belongs
+    They extend the preiliminars and request list of hte procedural_document where it belongs
     """
     def __init__(self):
         super(Preliminary, self).__init__()
@@ -70,13 +70,13 @@ class Preliminary(ContentLayer):
         self.value = None
     
     def _add(self):
-        self.petition.preliminars.extend(self.preliminary_request)
-        self.petition.requests.extend(self.request)
+        self.procedural_document.preliminars.extend(self.preliminary_request)
+        self.procedural_document.requests.extend(self.request)
 
-class Request(ContentLayer):
+class Request(ContentBlock):
     """
-    The request layers extend the value of the cause and moral damage from the petition
-    They also extend the the_law, requests, facts and docs list from the petition.
+    The request layers extend the value of the cause and moral damage from the procedural_document
+    They also extend the the_law, requests, facts and docs list from the procedural_document.
     """
     def __init__(self):
         super(Request, self).__init__()
@@ -87,14 +87,14 @@ class Request(ContentLayer):
         
     def _add(self):
         """
-        this method puts all the text that the layers generate for the petition on its right places 
+        this method puts all the text that the layers generate for the procedural_document on its right places 
             for later printing and saving
         """
-        self.petition.value_of_cause += self.value
-        self.petition.dano_moral += self.dano_moral
-        self.petition.facts.extend(self.fact)
-        self.petition.the_law.extend(self.law)
-        self.petition.requests.extend(self.request)
-        self.petition.docs.extend(self.docs)
+        self.procedural_document.value_of_cause += self.value
+        self.procedural_document.dano_moral += self.dano_moral
+        self.procedural_document.facts.extend(self.fact)
+        self.procedural_document.the_law.extend(self.law)
+        self.procedural_document.requests.extend(self.request)
+        self.procedural_document.docs.extend(self.docs)
 
 
