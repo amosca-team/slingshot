@@ -166,7 +166,9 @@ class RegistroSerasa(Request):
         self.law.append(t1)
         self.law.append(t2)
 ```
-
+  ## Contributing
+  If you want to help us, pull request on models (or whatever built-in models archives there are when you want to do it) file new layer you make. With that, you help democratizing the access to justice in Brazil. Also, if you add new features, we are looking forward to see it.
+  
   ## DISCLAIMER
   Slingshot is free to use, you can do whatever you want with it, just remember to cite "A Mosca" as the organization behind it. Also, we are not responsable for what you do with the code we've made.
   
