@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name = "slingshot",
     packages = "slingshot",
-    version = "0.4",
+    version = "0.5",
     license = "MIT",
     description = "Slingshot is a Python library bringed on by A Mosca team for creating reproducible procedural documents for Brazilian law-suits.",
     author = "A Mosca",
