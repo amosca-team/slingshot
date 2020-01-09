@@ -7,7 +7,7 @@ With those base layers we can create the ones that have actual content and can b
 """
 
 
-class ContentBlock():
+class ContentLayer():
 
     """
     This is our base model, and we treat it as an abstract class
@@ -24,7 +24,7 @@ class ContentBlock():
     def _add(self):
         raise NotImplementedError("This is an abstract method")
 
-class Part(ContentBlock):
+class Part(ContentLayer):
     """
     The part layer is also an abstract one (as has no ._add)
     its constructor receives name and address, so it can be from both the sued corporation or the author of the petiton
@@ -38,14 +38,14 @@ class Part(ContentBlock):
         self.address = address
         self.parraf = []
 
-class Context(ContentBlock):
+class Context(ContentLayer):
     """
     Context layers helps us in, on the start of the facts, set a start to the story
     For example, using a context layer we can state that the process happens in the context of a telephone plan
     Here we see that the ._add method sets our facts and has a very high priority.
     """
     def __init__(self):
-        super(ContentBlock, self).__init__()
+        super(ContentLayer, self).__init__()
         self.layer_type = "Contexto"
         self.fact = []
         self.priority = 100000
@@ -56,7 +56,7 @@ class Context(ContentBlock):
         self.procedural_document.main_req_type = self.pet_type
         self.procedural_document.pet_type = self.pet_type
 
-class Preliminary(ContentBlock):
+class Preliminary(ContentLayer):
     """
     The preliminary procedural_documents are used to set some requests on how the process will be judged
     They have also very high priority and a specific list of text for their request.
@@ -73,7 +73,7 @@ class Preliminary(ContentBlock):
         self.procedural_document.preliminars.extend(self.preliminary_request)
         self.procedural_document.requests.extend(self.request)
 
-class Request(ContentBlock):
+class Request(ContentLayer):
     """
     The request layers extend the value of the cause and moral damage from the procedural_document
     They also extend the the_law, requests, facts and docs list from the procedural_document.
