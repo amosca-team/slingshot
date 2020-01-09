@@ -2,26 +2,26 @@ import markdown
 import pdfkit
 import pypandoc
 
-class Petition():
+class ProceduralDocument():
 
     def __init__(self):
         """
-        constructor of the Petition type.
-        It has lists in order to archive the requests, authors, petition type, legal explanation of the requests and facts that hapenned
+        constructor of the procedural_document type.
+        It has lists in order to archive the requests, authors, procedural_document type, legal explanation of the requests and facts that hapenned
         To create it, you pass no parameters.
 
-        You create your petition by instancing petition layers and introducing it with the .add method of the petition
+        You create your procedural_document by instancing procedural_document layers and introducing it with the .add method of the procedural_document
         To organize your text, you use the .compile method, and then can visualize it with .print_text.
 
         Dano moral is a specific type of request that must be saved as an independent variable due to its importance on the requests
 
         The attributes are:
         :value of the cause and dano moral: values on which the judgement will be based
-        :author -> text list that states the author of the petition
-        :counter_part -> text list that states the counter_part of the petition
-        :pet_type -> bureaucratic type of the petition (string)
+        :author -> text list that states the author of the procedural_document
+        :counter_part -> text list that states the counter_part of the procedural_document
+        :pet_type -> bureaucratic type of the procedural_document (string)
         :perliminars -> text list that states requests about some rules on which the judgement will be based
-        :the law -> text list that states the legal explanation of the requests of the petition
+        :the law -> text list that states the legal explanation of the requests of the procedural_document
         :facts -> text list that states the facts that made the author to ask for his requests
         :requests -> text list that states what the author is actually asking for
         :docs -> the documents that proof that the author is telling the proof (text list)
@@ -46,8 +46,8 @@ class Petition():
     def summary(self):
         """
         Returns none, prints to the screen
-        As this lib is inspired in keras, our petition model object has a summary function
-        It gives us an ordered list of the petition titles and the final value of the cause
+        As this lib is inspired in keras, our procedural_document model object has a summary function
+        It gives us an ordered list of the procedural_document titles and the final value of the cause
         """
         assert self.compiled == True, "Precisa compilar a peticao"
         
@@ -62,21 +62,21 @@ class Petition():
     def add(self, layer):
         """
 
-        With this method, you add a layer to the petition model
-        Returns none and sets the petition of the layer to be the one where it is being added
+        With this method, you add a layer to the procedural_document model
+        Returns none and sets the procedural_document of the layer to be the one where it is being added
         It is important in order to add the requests to value of the cause and interact with other layers on the same pet_model
         """
-        layer.petition = self
+        layer.procedural_document = self
         self._request_obj_list.append(layer)
         pass
 
     def compile(self):
 
         """
-        This is one of the most important methods of the core petition model
-        It compiles the petition by organizing its texts
+        This is one of the most important methods of the core procedural_document model
+        It compiles the procedural_document by organizing its texts
         It sorts the request_obj_list to the correct order (by putting the parts and preliminaries first)
-        Then calls each layer on the list method ._add to introduce its text blocks on the correct list of the petition
+        Then calls each layer on the list method ._add to introduce its text blocks on the correct list of the procedural_document
 
         It also, it has alleged moral damage, creates an specific request to it.
         It also crates a request with the value of the cause, which is important on Brazilian law-processes
@@ -96,7 +96,7 @@ class Petition():
     def print_text(self):
 
         """
-        This method prints the petition text on the screen and indexes each parraf
+        This method prints the procedural_document text on the screen and indexes each parraf
         """
         idx = 1
         print("### **EXMO SR JUIZ DE DIREITO DO JEC DO TJSP**", end="\n\n\n\n")
@@ -129,7 +129,7 @@ class Petition():
     def _get_text(self):
 
         """
-        Gets the whole petition as a very big string
+        Gets the whole procedural_document as a very big string
         """
         idx = 1
         as_txt = ''
