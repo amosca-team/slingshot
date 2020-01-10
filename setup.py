@@ -1,21 +1,28 @@
-from distutils.core import setup
+from setuptools import setup
+from os import path
+
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_desc = f.read()
 
 setup(
-    name = "slingshot",
-    packages = "slingshot",
-    version = "0.5",
+    name = "slingshot-lawdocs",
+    packages = ["slingshot"],
+    version = "0.5.2",
     license = "MIT",
     description = "Slingshot is a Python library bringed on by A Mosca team for creating reproducible procedural documents for Brazilian law-suits.",
     author = "A Mosca",
     author_email = "staff.amosca@gmail.com",
-    download_url = "https://github.com/amosca-team/slingshot/archive/0.5.2.tar.gz",
+    url = "https://github.com/amosca-team/slingshot/",
+    long_description = long_desc,
+    long_description_content_type='text/markdown',
     install_requires = ["pdfkit",
-                        "pandoc",
+                        "pypandoc",
                         "markdown"
                         ],
     classifiers = [
         "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers, Law students",
-        "Programming Language :: Python 3.7"
+        "Intended Audience :: Developers",
+        "Programming Language :: Python :: 3.7"
     ]
 )
