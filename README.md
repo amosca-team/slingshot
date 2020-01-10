@@ -4,7 +4,7 @@ Slingshot is a Python library bringed on by **A Mosca** team for creating reprod
 ## Installation
 
 ```
-pip install slingshot-law
+pip install slingshot-lawdocs
 ```
 
 ## Objective
