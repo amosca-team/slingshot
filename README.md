@@ -7,6 +7,12 @@ Slingshot is a Python library bringed on by **A Mosca** team for creating reprod
 pip install slingshot-lawdocs
 ```
 
+## Run an example
+It will generate a simple clim (Petição) in your dir, using our lib.
+```
+python -m slingshot.procedural_document.examples.simple_claim
+```
+
 ## Objective
 Bringing to the community of law and technology students a open-source quality tool for creating procedural documents without having to lay on expensive and proprietary solutions bringed on by lawtechs for law suits. 
 
