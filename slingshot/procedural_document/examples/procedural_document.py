@@ -36,3 +36,7 @@ pet.add(ImpossivelCancelar(dano_moral=3000,
                            docs=["Pedido de cancelamento e email"]))
 
 pet.add(DanoMoral(2000))
+
+pet.compile()
+pet.summary()
+a = pet.save_document('yee')
