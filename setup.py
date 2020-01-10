@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from os import path
 
 this_directory = path.abspath(path.dirname(__file__))
@@ -7,8 +7,8 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name = "slingshot-lawdocs",
-    packages = ["slingshot"],
-    version = "0.5.2",
+    packages = find_packages(),
+    version = "0.5.5",
     license = "MIT",
     description = "Slingshot is a Python library bringed on by A Mosca team for creating reproducible procedural documents for Brazilian law-suits.",
     author = "A Mosca",
