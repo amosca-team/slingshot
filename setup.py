@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 setup(
     name = "slingshot-lawdocs",
     packages = find_packages(),
-    version = "0.5.3a1",
+    version = "0.5.4",
     license = "MIT",
     description = "Slingshot is a Python library bringed on by A Mosca team for creating reproducible procedural documents for Brazilian law-suits.",
     author = "A Mosca",
