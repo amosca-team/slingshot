@@ -1,12 +1,6 @@
 # Slingshot
 Slingshot is a Python library bringed on by **A Mosca** team for creating reproducible procedural documents for Brazilian law-suits. It was created during the development of **A Mosca** web application in order to democratize access to justice in Brazil, but as the code became more complex, we set the project apart and started to develop both independently. 
 
-## Installation
-
-```
-pip install slingshot-lawdocs
-```
-
 ## Objective
 Bringing to the community of law and technology students a open-source quality tool for creating procedural documents without having to lay on expensive and proprietary solutions bringed on by lawtechs for law suits. 
 
